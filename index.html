@@ -5,6 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Flip Flop Clock</title>
     <style>
+        :root {
+            /* Light Mode */
+            --color-card: #ffffff;
+            --color-text: #37352f;
+            --color-border: #e5e5e5;
+            --color-shadow: rgba(0, 0, 0, 0.08);
+            --color-hover: #f0f0f0;
+        }
+
+        [data-theme="dark"] {
+            /* Dark Mode */
+            --color-card: #2a2a2a;
+            --color-text: #e0e0e0;
+            --color-border: #3d3d3d;
+            --color-shadow: rgba(0, 0, 0, 0.4);
+            --color-hover: #333333;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -18,6 +36,18 @@
             min-height: 100vh;
             background: transparent;
             font-family: 'Courier New', monospace;
+            transition: background 0.3s ease;
+        }
+
+        .clock-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 20px;
+            border-radius: 14px;
+            border: 1px solid var(--color-border);
+            box-shadow: 0 2px 8px var(--color-shadow);
+            background: var(--color-card);
         }
 
         .clock-container {
@@ -29,15 +59,17 @@
 
         .period {
             font-size: 14px;
-            color: #888;
+            color: var(--color-text);
             font-weight: 600;
             min-width: 40px;
             text-align: left;
+            opacity: 0.7;
         }
 
         .flip-clock {
             display: flex;
             gap: 15px;
+            align-items: center;
         }
 
         .flip-card {
@@ -47,14 +79,16 @@
             transform-style: preserve-3d;
             font-size: 80px;
             font-weight: 700;
-            color: white;
-            background-color: rgba(30, 30, 30, 0.9);
+            color: var(--color-text);
+            background-color: var(--color-hover);
+            border: 1px solid var(--color-border);
             border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+            box-shadow: 0 4px 12px var(--color-shadow);
             display: flex;
             align-items: center;
             justify-content: center;
+            transition: all 0.3s ease;
         }
 
         .flip-card-inner {
@@ -99,9 +133,11 @@
         .divider {
             font-size: 60px;
             font-weight: 700;
-            color: white;
+            color: var(--color-text);
             margin: 0 5px;
             animation: blink 1s infinite;
+            align-self: center;
+            margin-bottom: -2px;
         }
 
         @keyframes blink {
@@ -113,7 +149,29 @@
             }
         }
 
+        .theme-toggle {
+            background: transparent;
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            padding: 8px 12px;
+            cursor: pointer;
+            font-size: 16px;
+            color: var(--color-text);
+            transition: all 0.2s ease;
+            margin-left: 12px;
+        }
+
+        .theme-toggle:hover {
+            filter: brightness(1.05);
+        }
+
         @media (max-width: 600px) {
+            .clock-wrapper {
+                padding: 16px;
+                flex-direction: column;
+                gap: 16px;
+            }
+
             .flip-card {
                 width: 70px;
                 height: 90px;
@@ -122,44 +180,48 @@
 
             .divider {
                 font-size: 40px;
+                margin-bottom: -1px;
             }
 
-            .gap-adjust {
-                gap: 10px;
+            .theme-toggle {
+                margin-left: 0;
             }
         }
     </style>
 </head>
 <body>
-    <div class="clock-container">
-        <div class="period" id="period">PM</div>
-        <div class="flip-clock">
-            <div class="flip-card" id="hour-tens">
-                <div class="flip-card-inner">
-                    <div class="flip-card-front">0</div>
-                    <div class="flip-card-back">0</div>
+    <div class="clock-wrapper">
+        <div class="clock-container">
+            <div class="period" id="period">PM</div>
+            <div class="flip-clock">
+                <div class="flip-card" id="hour-tens">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">0</div>
+                        <div class="flip-card-back">0</div>
+                    </div>
                 </div>
-            </div>
-            <div class="flip-card" id="hour-ones">
-                <div class="flip-card-inner">
-                    <div class="flip-card-front">0</div>
-                    <div class="flip-card-back">0</div>
+                <div class="flip-card" id="hour-ones">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">0</div>
+                        <div class="flip-card-back">0</div>
+                    </div>
                 </div>
-            </div>
-            <div class="divider">:</div>
-            <div class="flip-card" id="minute-tens">
-                <div class="flip-card-inner">
-                    <div class="flip-card-front">0</div>
-                    <div class="flip-card-back">0</div>
+                <div class="divider">:</div>
+                <div class="flip-card" id="minute-tens">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">0</div>
+                        <div class="flip-card-back">0</div>
+                    </div>
                 </div>
-            </div>
-            <div class="flip-card" id="minute-ones">
-                <div class="flip-card-inner">
-                    <div class="flip-card-front">0</div>
-                    <div class="flip-card-back">0</div>
+                <div class="flip-card" id="minute-ones">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">0</div>
+                        <div class="flip-card-back">0</div>
+                    </div>
                 </div>
             </div>
         </div>
+        <button class="theme-toggle" onclick="toggleTheme()" id="themeToggle">🌙</button>
     </div>
 
     <script>
@@ -220,10 +282,38 @@
             }
         }
 
-        // Initial update
-        updateClock();
+        function toggleTheme() {
+            const html = document.documentElement;
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeButton();
+        }
 
-        // Update every second
+        function updateThemeButton() {
+            const button = document.getElementById('themeToggle');
+            const theme = document.documentElement.getAttribute('data-theme');
+            button.textContent = theme === 'dark' ? '☀️' : '🌙';
+        }
+
+        window.addEventListener('load', () => {
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const savedTheme = localStorage.getItem('theme');
+            const themeToUse = savedTheme || (prefersDark ? 'dark' : 'light');
+            document.documentElement.setAttribute('data-theme', themeToUse);
+            updateThemeButton();
+            updateClock();
+        });
+
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+            if (!localStorage.getItem('theme')) {
+                const newTheme = e.matches ? 'dark' : 'light';
+                document.documentElement.setAttribute('data-theme', newTheme);
+                updateThemeButton();
+            }
+        });
+
         setInterval(updateClock, 1000);
     </script>
 </body>
