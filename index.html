@@ -7,20 +7,20 @@
     <style>
         :root {
             /* Light Mode */
-            --color-card: #ffffff;
+            --color-card: transparent;
             --color-text: #37352f;
             --color-border: #e5e5e5;
-            --color-shadow: rgba(0, 0, 0, 0.08);
+            --color-shadow: rgba(0, 0, 0, 0.06);
             --color-hover: #f0f0f0;
         }
 
         [data-theme="dark"] {
             /* Dark Mode */
-            --color-card: #2a2a2a;
+            --color-card: transparent;
             --color-text: #e0e0e0;
             --color-border: #3d3d3d;
-            --color-shadow: rgba(0, 0, 0, 0.4);
-            --color-hover: #333333;
+            --color-shadow: rgba(0, 0, 0, 0.2);
+            --color-hover: #2a2a2a;
         }
 
         * {
@@ -42,49 +42,49 @@
         .clock-wrapper {
             display: flex;
             align-items: center;
-            gap: 12px;
-            padding: 20px;
-            border-radius: 14px;
+            gap: 10px;
+            padding: 14px 16px;
+            border-radius: 12px;
             border: 1px solid var(--color-border);
-            box-shadow: 0 2px 8px var(--color-shadow);
+            box-shadow: 0 2px 6px var(--color-shadow);
             background: var(--color-card);
         }
 
         .clock-container {
             display: flex;
-            gap: 20px;
+            gap: 14px;
             align-items: center;
-            perspective: 1000px;
+            perspective: 800px;
         }
 
         .period {
-            font-size: 14px;
+            font-size: 13px;
             color: var(--color-text);
             font-weight: 600;
-            min-width: 40px;
+            min-width: 32px;
             text-align: left;
             opacity: 0.7;
         }
 
         .flip-clock {
             display: flex;
-            gap: 15px;
+            gap: 10px;
             align-items: center;
         }
 
         .flip-card {
-            width: 100px;
-            height: 130px;
+            width: 70px;
+            height: 90px;
             position: relative;
             transform-style: preserve-3d;
-            font-size: 80px;
+            font-size: 52px;
             font-weight: 700;
             color: var(--color-text);
             background-color: var(--color-hover);
             border: 1px solid var(--color-border);
-            border-radius: 12px;
+            border-radius: 10px;
             overflow: hidden;
-            box-shadow: 0 4px 12px var(--color-shadow);
+            box-shadow: 0 2px 6px var(--color-shadow);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -131,10 +131,10 @@
         }
 
         .divider {
-            font-size: 60px;
+            font-size: 40px;
             font-weight: 700;
             color: var(--color-text);
-            margin: 0 5px;
+            margin: 0 2px;
             animation: blink 1s infinite;
             align-self: center;
             margin-bottom: -2px;
@@ -153,12 +153,11 @@
             background: transparent;
             border: 1px solid var(--color-border);
             border-radius: 8px;
-            padding: 8px 12px;
+            padding: 6px 8px;
             cursor: pointer;
-            font-size: 16px;
+            font-size: 14px;
             color: var(--color-text);
             transition: all 0.2s ease;
-            margin-left: 12px;
         }
 
         .theme-toggle:hover {
@@ -167,24 +166,24 @@
 
         @media (max-width: 600px) {
             .clock-wrapper {
-                padding: 16px;
-                flex-direction: column;
-                gap: 16px;
+                padding: 12px 14px;
+                gap: 10px;
             }
 
             .flip-card {
-                width: 70px;
-                height: 90px;
-                font-size: 55px;
+                width: 58px;
+                height: 76px;
+                font-size: 44px;
             }
 
             .divider {
-                font-size: 40px;
+                font-size: 32px;
                 margin-bottom: -1px;
             }
 
-            .theme-toggle {
-                margin-left: 0;
+            .period {
+                font-size: 12px;
+                min-width: 28px;
             }
         }
     </style>
@@ -237,7 +236,7 @@
             const now = new Date();
             let hours = now.getHours();
             const minutes = now.getMinutes();
-            
+
             const isPM = hours >= 12;
             hours = hours % 12 || 12;
 
